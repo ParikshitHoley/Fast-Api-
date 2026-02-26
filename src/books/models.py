@@ -3,9 +3,11 @@ import uuid
 from datetime import date, datetime
 import sqlalchemy.dialects.postgresql as pg
 import sqlalchemy as sa
+from pydantic import ConfigDict
 
 
 class BookModel(SQLModel, table=True):
+    
     __tablename__ = "books"
 
     id: uuid.UUID = Field(
