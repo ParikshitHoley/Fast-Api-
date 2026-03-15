@@ -1,30 +1,26 @@
-from sqlmodel import SQLModel, Field, Column
+from sqlmodel import Field, SQLModel,Column
 import uuid
-from datetime import date, datetime
+from datetime import datetime
 import sqlalchemy.dialects.postgresql as pg
 import sqlalchemy as sa
-from pydantic import ConfigDict
 
-
-class BookModel(SQLModel, table=True):
+class User(SQLModel, table=True):
+    __tablename__ = "users"
     
-    __tablename__ = "books"
-
     id: uuid.UUID = Field(
         sa_column=Column(
             pg.UUID(as_uuid=True),
             primary_key=True,
             nullable=False,
             default=uuid.uuid4
-        )
-    )
-
-    name: str
-    author: str
-    genre: str
-    publish_date: date
-    price: int
-
+            
+        ))
+        
+    username:str
+    email:str
+    first_name  :str
+    last_name:str
+    is_active:bool = True 
     created_at: datetime = Field(
         default_factory=datetime.utcnow,
         sa_column=Column(
@@ -45,4 +41,5 @@ class BookModel(SQLModel, table=True):
     )
     
     def __repr__(self):
-        return f'<BookModel {self.name}>'
+        return f'<User {self.username}>'
+    
